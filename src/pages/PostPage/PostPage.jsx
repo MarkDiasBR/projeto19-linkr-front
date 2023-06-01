@@ -1,4 +1,4 @@
-import Header from "../../contexts/Header";
+import Header from "../../components/Header";
 import PublishContainer from "../../components/PublishContainerComponent";
 import PostsContainerComponents from "../../components/PostsContainerComponent";
 import { TimeLineContainer, TimeLineTitle } from "./PostPageStyle";
