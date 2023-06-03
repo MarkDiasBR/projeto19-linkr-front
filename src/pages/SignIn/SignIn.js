@@ -17,6 +17,15 @@ export default function SignIn() {
             </TitleContainer>
             <FormContainer>
                 <Form>
+                    <input 
+                        name="email"
+                        type="email"
+                        autoComplete="off"
+                        placeholder="E-mail" 
+                        // onChange={handleForm}
+                        // disabled={disabledInput}
+                        required
+                    />
                     <input placeholder="e-mail"/>
                     <input placeholder="password"/>
                     <button>
