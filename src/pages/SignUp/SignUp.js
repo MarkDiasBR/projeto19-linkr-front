@@ -2,9 +2,11 @@ import { Container, FormContainer, Form, TitleContainer, Title } from "./styled"
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { signUp } from "../../services/user.services.js";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp() {
     const [form, setForm] = useState({ email: "", password: "", confirmPassword: "", username: "" });
+    const [hidePassword, setHidePassword] = useState([true, true])
     const [disabledInput, setDisabledInput] = useState(false);
 
     const navigate = useNavigate();
@@ -21,12 +23,19 @@ export default function SignUp() {
         const {name, value} = event.target;
 
         const newForm = {...form, [name]: value};
-        console.log(newForm);
+        if (newForm.pictureUrl === "") delete newForm.pictureUrl;
+
         setForm(newForm);
     }
     
     async function handleSubmit(event) {
         event.preventDefault();
+
+        for (let index in hidePassword) {
+            if (!hidePassword[index]) {
+                document.querySelector(`.eye-button-1${index}`).click();
+            }
+        }
     
         setDisabledInput(true);
 
@@ -35,8 +44,46 @@ export default function SignUp() {
         setDisabledInput(signupPromise.proceed);
 
         if (signupPromise.proceed) {
-            navigate("/sign-in")
+            navigate("/")
         }
+
+        setHidePassword([true,true]);
+    }
+
+    function handleRevealPassword(event) {
+        event.preventDefault();
+
+        const input = event.target.previousElementSibling;
+
+        if (input.type === "password") {
+          input.type = "text";
+        } else {
+          input.type = "password";
+        }   
+    }
+
+    function handleIconChange(event, index) {
+        const input = event.target.previousElementSibling;
+
+        const newHidePassword = [...hidePassword];
+        newHidePassword[index] = !newHidePassword[index];
+
+        setHidePassword(newHidePassword);
+
+        input.focus();
+    }
+
+    function handleButtonVisibility(event) {
+        const input = event.target;
+        const button = event.target.nextElementSibling;
+
+        if (input.value !== "") {
+            button.classList.remove('invisible');
+        } else {
+            button.classList.add('invisible');
+        }
+
+        input.focus();
     }
 
     return (
@@ -47,7 +94,9 @@ export default function SignUp() {
                         linkr
                     </h1>
                     <p>
-                        save, share and discover<br/>
+                        save, share and discover
+                    </p>
+                    <p>
                         the best links on the web
                     </p>
                 </Title>
@@ -62,27 +111,77 @@ export default function SignUp() {
                         onChange={handleForm}
                         disabled={disabledInput}
                         required
+
+                        onFocus={(event) => event.target.removeAttribute('readonly')} 
+                        readOnly
                     />
-                    <input 
-                        ref={password}
-                        name="password"
-                        type="password"
-                        autoComplete="off"
-                        placeholder="password" 
-                        onChange={handleForm}
-                        disabled={disabledInput}
-                        required
-                    />
-                    <input 
-                        ref={confirmPassword}
-                        name="confirmPassword"
-                        type="password"
-                        autoComplete="off"
-                        placeholder="confirm password" 
-                        onChange={handleForm}
-                        disabled={disabledInput}
-                        required
-                    />
+                    <div>
+                        <input 
+                            ref={password}
+                            name="password"
+                            type="password"
+                            autoComplete="off"
+                            placeholder="password" 
+                            onChange={(event) => {
+                                handleForm(event);
+                                handleButtonVisibility(event);
+                            }}
+                            disabled={disabledInput}
+                            required
+
+                            onFocus={(event) => event.target.removeAttribute('readonly')} 
+                            readOnly 
+                        />
+                        <button
+                            tabIndex="-1"
+                            className="invisible hide-password eye-button-10"
+                            type="button"
+                            onClick={(event) => {
+                                handleRevealPassword(event);
+                                handleIconChange(event, 0);
+                            }}
+                        >
+                            {   
+                                hidePassword[0]
+                                ? <FaEye />
+                                : <FaEyeSlash />
+                            }
+                        </button>
+                    </div>
+                    <div>
+                        <input 
+                            ref={confirmPassword}
+                            name="confirmPassword"
+                            type="password"
+                            autoComplete="off"
+                            placeholder="confirm password" 
+                            onChange={(event) => {
+                                handleForm(event);
+                                handleButtonVisibility(event);
+                            }}
+                            disabled={disabledInput}
+                            required
+
+                            onFocus={(event) => event.target.removeAttribute('readonly')} 
+                            readOnly 
+                        />
+                        <button 
+                            tabIndex="-1"
+                            className="invisible hide-password eye-button-11"
+                            type="button"
+                            onClick={(event) => {
+                                handleRevealPassword(event);
+                                handleIconChange(event, 1);
+                            }}
+                            disabled={disabledInput}
+                        >
+                            {   
+                                hidePassword[1]
+                                ? <FaEye />
+                                : <FaEyeSlash />
+                            }
+                        </button>
+                    </div>
                     <input 
                         name="username"
                         type="text"
@@ -91,6 +190,9 @@ export default function SignUp() {
                         onChange={handleForm}
                         disabled={disabledInput}
                         required
+
+                        onFocus={(event) => event.target.removeAttribute('readonly')} 
+                        readOnly 
                     />
                     <input 
                         name="pictureUrl"
@@ -99,6 +201,9 @@ export default function SignUp() {
                         placeholder="picture url" 
                         onChange={handleForm}
                         disabled={disabledInput}
+
+                        onFocus={(event) => event.target.removeAttribute('readonly')} 
+                        readOnly 
                     />
                     <button 
                         type="submit"

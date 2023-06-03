@@ -5,6 +5,12 @@ export const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-wrap: nowrap;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 30px;
+        background-color: #333;
+    }
 `
 
 export const TitleContainer = styled.div`
@@ -14,6 +20,12 @@ export const TitleContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        height: 240px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
 `
 
 export const Title = styled.div`
@@ -26,12 +38,29 @@ export const Title = styled.div`
         font-weight: 700;
         font-size: 106px;
         font-family: 'Passion One', cursive;
+        line-height: 117px;
+        letter-spacing: 0.05em;
     }
 
     & p {
         font-weight: 700;
         font-size: 43px;
         font-family: 'Oswald', sans-serif;
+        line-height: 64px;
+    }
+
+    @media (max-width: 768px) {
+        & h1 {
+            font-size: 76px;
+            line-height: 84px;
+            align-self: center;
+        }
+
+        & p {
+            font-size: 23px;
+            line-height: 34px;
+            align-self: center;
+        }
     }
 `
 
@@ -42,6 +71,11 @@ export const FormContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        align-items: flex-start;
+    }
 `
 
 export const Form = styled.form`
@@ -57,14 +91,14 @@ export const Form = styled.form`
         border: none;
         width: 429px;
         height: 65px;
-    }
-
-    & input,
-    & input::placeholder {
-        color: #9f9f9f;
+        color: #000;
         font-weight: 700;
         font-size: 27px;
         font-family: 'Oswald', sans-serif; 
+    }
+
+    & input::placeholder {
+        color: #9f9f9f;
     }
 
     & button {
@@ -89,5 +123,55 @@ export const Form = styled.form`
         font-weight: 400;
         font-size: 20px;
         font-family: 'Lato', sans-serif;
+    }
+    
+    & div {
+        position: relative;
+    }
+
+    & div button {
+        position: absolute;
+        background-color: transparent;
+        color: #000;
+        right: 0px;
+        width: 50px;
+    }
+
+    & div button.invisible {
+        display: none;
+    }
+
+    & div button svg {
+        pointer-events: none;
+    }
+
+    & div input {
+        padding-right: 50px;
+    }
+
+    @media (max-width: 1300px) {
+        & input {
+            width: 33vw;
+        }
+
+        & button {
+            width: 33vw;
+        }
+
+        @media (max-width: 768px) {
+            width: 100%;
+            gap: 10px;
+
+            & input,
+            & div,
+            & button {
+                width: 90%;
+            }
+
+            & div input {
+                width: 100%;
+            
+            }
+        }
     }
 `

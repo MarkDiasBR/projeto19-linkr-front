@@ -5,7 +5,6 @@ import axios from 'axios';
 export async function signUp(form) {
     try {
         const promise = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, form);
-
         promise.proceed = true;
         return promise;
     } catch (err) {
@@ -18,8 +17,9 @@ export async function signUp(form) {
 export async function signIn(form) {
     try {
         const promise = await axios.post(`${process.env.REACT_APP_API_URL}/signin`, form);
+
         localStorage.setItem("token", promise.data.token);
-        
+        console.log(promise.data)
         promise.proceed = true;
         return promise;
     } catch (err) {
