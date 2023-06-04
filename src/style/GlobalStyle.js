@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body{
-        background-color: #151515;
+        background-color: #333333;
     }
 `;
 

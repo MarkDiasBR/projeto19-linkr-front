@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, FormContainer, Form, TitleContainer, Title } from "./styled";
 import { signIn } from "../../services/user.services";
@@ -7,9 +7,30 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function SignIn() {
     const [form, setForm] = useState({email: "", password: "" });
     const [hidePassword, setHidePassword] = useState([true])
-    const [disabledInput, setDisabledInput] = useState(false);
+    const [disabledInput, setDisabledInput] = useState(true);
 
     const navigate = useNavigate();
+
+    const emailInputRef = useRef(null);
+    const passwordInputRef = useRef(null);
+
+    useEffect(() => {
+        const emailInput = emailInputRef.current;
+        const passwordInput = passwordInputRef.current;     
+        
+        
+
+        setTimeout(()=>{
+            setDisabledInput(false);
+        }, 1000);
+
+        setTimeout(()=>{
+            passwordInput.focus();
+            emailInput.focus();
+        }, 1100);
+    }, []);
+
+
 
     function handleForm(event) {
         const {name, value} = event.target;
@@ -35,7 +56,7 @@ export default function SignIn() {
         setDisabledInput(signinPromise.proceed);
 
         if (signinPromise.proceed) {
-            navigate("/")
+            navigate("/timeline")
         }
     }
 
@@ -89,13 +110,22 @@ export default function SignIn() {
                 </Title>
             </TitleContainer>
             <FormContainer>
-                <Form onSubmit={handleSubmit}>
+                <Form 
+                    invalid={true}
+                    onSubmit={handleSubmit}
+                    // buttonColor={buttonColor}
+                >
                     <input 
+                        ref={emailInputRef}
                         name="email"
                         type="email"
-                        autoComplete="off"
                         placeholder="e-mail" 
-                        onChange={handleForm}
+                        onChange={(event) => {
+                            handleForm(event);
+                            // updateButtonColor();
+                            // console.log('isFormValid:', isFormValid)
+                            // console.log('disabledInput:', disabledInput);
+                        }}
                         disabled={disabledInput}
                         required
 
@@ -104,16 +134,20 @@ export default function SignIn() {
                     />
                     <div>
                         <input 
+                            ref={passwordInputRef}
                             name="password"
                             type="password"
-                            autoComplete="off"
                             placeholder="password"
                             onChange={(event) => {
                                 handleForm(event);
                                 handleButtonVisibility(event);
+                                // updateButtonColor();
+                                // console.log('isFormValid:', isFormValid);
+                                // console.log('disabledInput:', disabledInput);
                             }}
                             disabled={disabledInput}
                             required
+                            minLength="3"
 
                             onFocus={(event) => event.target.removeAttribute('readonly')} 
                             readOnly
@@ -138,6 +172,12 @@ export default function SignIn() {
                     <button
                         type="submit"
                         disabled={disabledInput}
+                        onClick={(event)=>{
+                            // event.preventDefault();
+                            // console.log('isFormValid:',isFormValid);
+                            // console.log('disabledInput:', disabledInput);
+                            // updateButtonColor();
+                        }}
                     >
                         Log In
                     </button>

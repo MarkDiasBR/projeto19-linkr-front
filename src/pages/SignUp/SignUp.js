@@ -1,13 +1,13 @@
 import { Container, FormContainer, Form, TitleContainer, Title } from "./styled";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { signUp } from "../../services/user.services.js";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp() {
     const [form, setForm] = useState({ email: "", password: "", confirmPassword: "", username: "" });
     const [hidePassword, setHidePassword] = useState([true, true])
-    const [disabledInput, setDisabledInput] = useState(false);
+    const [disabledInput, setDisabledInput] = useState(true);
 
     const navigate = useNavigate();
 
@@ -18,6 +18,31 @@ export default function SignUp() {
     } else {
         confirmPassword.current?.setCustomValidity('');
     }
+
+    const email = useRef();
+    const username = useRef();
+    const pictureUrl = useRef();
+
+
+    useEffect(() => {
+        setTimeout(()=>{
+            setDisabledInput(false);
+        }, 1000);
+
+        setTimeout(()=>{
+            pictureUrl.current.focus();
+            username.current.focus();
+            confirmPassword.current.focus();
+            password.current.focus();
+            email.current.focus();
+        }, 1100);
+    }, []);
+
+            // const email = email.current;
+        // const password = password.current;    
+        // const confirmPassword = confirmPassword.current;
+        // const username = username.current;
+        // const pictureUrl = pictureUrl.current;
 
     function handleForm(event) {
         const {name, value} = event.target;
@@ -104,6 +129,7 @@ export default function SignUp() {
             <FormContainer>
                 <Form onSubmit={handleSubmit}>
                     <input 
+                        ref={email}
                         name="email"
                         type="email"
                         autoComplete="off"
@@ -128,6 +154,7 @@ export default function SignUp() {
                             }}
                             disabled={disabledInput}
                             required
+                            minLength="3"
 
                             onFocus={(event) => event.target.removeAttribute('readonly')} 
                             readOnly 
@@ -161,6 +188,7 @@ export default function SignUp() {
                             }}
                             disabled={disabledInput}
                             required
+                            minLength="3"
 
                             onFocus={(event) => event.target.removeAttribute('readonly')} 
                             readOnly 
@@ -183,6 +211,7 @@ export default function SignUp() {
                         </button>
                     </div>
                     <input 
+                        ref={username}
                         name="username"
                         type="text"
                         autoComplete="off"
@@ -190,11 +219,13 @@ export default function SignUp() {
                         onChange={handleForm}
                         disabled={disabledInput}
                         required
+                        minLength="3"
 
                         onFocus={(event) => event.target.removeAttribute('readonly')} 
                         readOnly 
                     />
                     <input 
+                        ref={pictureUrl}
                         name="pictureUrl"
                         type="url"
                         autoComplete="off"

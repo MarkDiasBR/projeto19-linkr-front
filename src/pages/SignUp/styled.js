@@ -22,6 +22,8 @@ export const TitleContainer = styled.div`
     align-items: center;
 
     @media (max-width: 768px) {
+        padding-top: 10px;
+        align-items: flex-start;
         width: 100vw;
         height: 240px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -95,6 +97,7 @@ export const Form = styled.form`
         font-weight: 700;
         font-size: 27px;
         font-family: 'Oswald', sans-serif; 
+        transition: all 0.1s ease-in-out;
     }
 
     & input::placeholder {
@@ -106,11 +109,23 @@ export const Form = styled.form`
         font-weight: 700;
         font-size: 27px;
         font-family: 'Oswald', sans-serif; 
-        background-color: #1877F2;
+        /* background-color: ${props=>props.buttonColor}; */
+        background-color: blue;
+        transition: all 0.1s ease-in-out;
         border-radius: 6px;
         border: none;
         width: 429px;
         height: 65px;
+    }
+
+    &:invalid > button  {
+        background-color: #BDDDF9;
+        transition: all 0.1s ease-in-out;
+    }
+
+    & > button:disabled {
+        background-color: #062B5C;
+        transition: all 0.1s ease-in-out;
     }
 
     & a {
