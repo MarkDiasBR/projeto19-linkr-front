@@ -56,6 +56,7 @@ export const LinkData = styled.div`
 
 export const LinkContainer = styled.div`
     display: flex;
+    justify-content: space-between;
     width: 503px;
     height: 155px;
     border: 1px solid #4D4D4D;
