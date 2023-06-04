@@ -51,8 +51,8 @@ export default function TrendingPage() {
                             {trendingTags.map((tt, index) => {
                                 const cleanedHashtag = tt.name.replace('#', '');
                                 return (
-                                    <Link to={`/hashtag/${cleanedHashtag}`}>
-                                        <TrendingTag key={index}>{`# ${cleanedHashtag}`}</TrendingTag>
+                                    <Link key={index} to={`/hashtag/${cleanedHashtag}`}>
+                                        <TrendingTag >{`# ${cleanedHashtag}`}</TrendingTag>
                                     </Link>
                                 );
                             })}

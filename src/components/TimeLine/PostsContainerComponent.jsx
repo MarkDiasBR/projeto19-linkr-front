@@ -2,7 +2,7 @@ import socrates from "../../assets/socratesazul-cke.jpg"
 //import diogenes from "../assets/Diogenes.jpeg";
 import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
-import { PostsContainer, Post, UserPhoto, PostData, PostTitle, PostSubtitle, LinkContainer, LinkData, LinkPhoto, LinkSummary, LinkTitle, LinkUrl } from "./PostsContainerComponentStyle";
+import { BoldTag, PostsContainer, Post, UserPhoto, PostData, PostTitle, PostSubtitle, LinkContainer, LinkData, LinkPhoto, LinkSummary, LinkTitle, LinkUrl } from "./PostsContainerComponentStyle";
 
 export default function PostsContainerComponents() {
     const { timeLineData, metaDataInfo } = useContext(UserContext);
@@ -10,6 +10,33 @@ export default function PostsContainerComponents() {
     function openUrl(url) {
         window.open(url, "_blank");
     }
+
+    function DescriptionComponent({ description }) {
+        return (
+            <div>
+                {description.split(' ').map((word, index) => {
+                    if (word.startsWith('#')) {
+                        return <BoldTag key={index}>{word} </BoldTag>;
+                    } else {
+                        return <span key={index}>{word} </span>;
+                    }
+                })}
+            </div>
+        );
+    }
+    //function DescriptionComponent({ description }) {
+    //    return (
+    //        <div>
+    //            {description.split(' ').map((word, index) => {
+    //                if (word.startsWith('#')) {
+    //                    return <BoldTag key={index}>{word} </BoldTag>;
+    //                } else {
+    //                    return <span key={index}>{word} </span>;
+    //                }
+    //            })}
+    //        </div>
+    //    );
+    //}
 
     return (
         <PostsContainer>
@@ -31,7 +58,7 @@ export default function PostsContainerComponents() {
                                         {metaInfo ? metaInfo.title : "loading..."}
                                     </LinkTitle>
                                     <LinkSummary>
-                                        {metaInfo ? description : "loading..."}
+                                        <DescriptionComponent description={description} />
                                     </LinkSummary>
                                     {/*<LinkSummary>
                                         {metaInfo ? description : "loading..."}
@@ -50,3 +77,13 @@ export default function PostsContainerComponents() {
         </PostsContainer>
     );
 }
+
+
+//const BoldTag = styled.span`
+//    font-family: 'Lato';
+//    font-style: normal;
+//    font-size: 11px;
+//    line-height: 13px;
+//    color: #9B9595;
+//    font-weight: 700;
+//`;

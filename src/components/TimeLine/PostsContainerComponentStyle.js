@@ -27,6 +27,15 @@ export const LinkUrl = styled.h3`
     margin-top: 15px;
 `;
 
+export const BoldTag = styled.strong`
+    font-family: 'Lato';
+    font-style: normal;
+    font-size: 11px;
+    line-height: 13px;
+    color: #9B9595;
+    font-weight: 700;
+`;
+
 export const LinkSummary = styled.h2`
     font-family: 'Lato';
     font-style: normal;
@@ -34,6 +43,9 @@ export const LinkSummary = styled.h2`
     font-size: 11px;
     line-height: 13px;
     color: #9B9595;
+    strong{
+        color: red;
+    }
 `;
 
 export const LinkTitle = styled.h1`
