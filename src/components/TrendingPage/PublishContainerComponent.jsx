@@ -17,6 +17,7 @@ export default function PublishContainerComponent() {
 
     function getPublish(event) {
         event.preventDefault();
+        alert("button");
         setPublishDisable(true);
         setPublishButtonText("Publishing...");
 

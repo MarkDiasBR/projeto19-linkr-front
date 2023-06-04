@@ -1,12 +1,13 @@
 import Header from "../../components/Header";
-import PublishContainer from "../../components/TimeLine/PublishContainerComponent";
-import PostsContainerComponents from "../../components/TimeLine/PostsContainerComponent";
-import { TimeLineContainer, TimeLineTitle, Loading, TrendingPageContainer } from "./TrendingPageStyle";
+//import PublishContainer from "../../components/TredingPage/PublishContainerComponent";
+import PublishContainer from "../../components/TrendingPage/PublishContainerComponent";
+//import PostsContainerComponents from "../../components/TredingPage/PostsContainerComponent";
+import PostsContainerComponents from "../../components/TrendingPage/PostsContainerComponent";
+import { TrendingContainer, TrendingTags, TrendingTag, TrendingTitle, TimeLineContainer, TimeLineTitle, Loading, TrendingPageContainer } from "./TrendingPageStyle";
 import { UserContext } from "../../contexts/UserContext";
 import { useContext, useState, useEffect } from "react";
 //import { useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { Link } from 'react-router-dom';
 
 
@@ -75,56 +76,3 @@ export default function TrendingPage() {
         </>
     );
 }
-
-const TrendingTags = styled.div`
-    margin-top: 22px;
-    margin-left: 16px;
-        a{
-        color: #FFFFFF;
-        text-decoration: none;
-        &:link, &:visited {
-            color: none;
-            text-decoration: none;
-            cursor: none;
-        }
-
-        &:link:active, &:visited:active {
-            color: none;
-        }
-}
-`;
-
-const TrendingTitle = styled.div`
-    font-family: 'Oswald';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 27px;
-    line-height: 40px;
-    color: #FFFFFF;
-    margin-top: 9px;
-    padding-left: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #484848;
-`;
-
-const TrendingTag = styled.p`
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 19px;
-    line-height: 23px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    margin-bottom: 7px;
-    cursor: pointer;
-`;
-
-const TrendingContainer = styled.div`
-    width: 301px;
-    height: 406px;
-    background: #171717;
-    /*background: red;*/
-    border-radius: 16px;
-    margin-top: 170px;
-`;
-
