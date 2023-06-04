@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const UserStats = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 export const LinkPhoto = styled.img`
     width: 155px;
     height: 155px;
@@ -101,6 +106,22 @@ export const PostTitle = styled.h1`
 export const PostsContainer = styled.div`
     display: flex;
     flex-direction: column;
+`;
+
+export const LikeButtonIcon = styled.div`
+    margin-top: 19px;
+    margin-left: 28px;
+`;
+
+export const LikeCount = styled.div`
+    margin-top: 5px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: #FFFFFF;
 `;
 
 export const UserPhoto = styled.img`

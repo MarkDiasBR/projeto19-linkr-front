@@ -1,11 +1,35 @@
-import socrates from "../../assets/socratesazul-cke.jpg"
+import socrates from "../../assets/socratesazul-cke.jpg";
 //import diogenes from "../assets/Diogenes.jpeg";
 import { UserContext } from "../../contexts/UserContext";
-import { useContext } from "react";
-import { BoldTag, PostsContainer, Post, UserPhoto, PostData, PostTitle, PostSubtitle, LinkContainer, LinkData, LinkPhoto, LinkSummary, LinkTitle, LinkUrl } from "./PostsContainerComponentStyle";
+import { useContext, useState } from "react";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import {
+    LikeButtonIcon,
+    UserStats,
+    BoldTag,
+    PostsContainer,
+    Post,
+    UserPhoto,
+    PostData,
+    PostTitle,
+    PostSubtitle,
+    LinkContainer,
+    LinkData,
+    LinkPhoto,
+    LinkSummary,
+    LinkTitle,
+    LinkUrl,
+    LikeCount,
+} from "./PostsContainerComponentStyle";
 
 export default function PostsContainerComponents() {
     const { timeLineData, metaDataInfo } = useContext(UserContext);
+    const [isLike, setIsLike] = useState(Array(timeLineData.length).fill(false));
+    //const [likeCount, setLikeCount] = useState()
+
+    ///GEREI NUMEROS DE LIKES ALEATORIOS MAS PRECISA SER DE ACORD COM O POST...
+    const randomLikes = timeLineData.map(() => Math.floor(Math.random() * timeLineData.length));
+
 
     function openUrl(url) {
         window.open(url, "_blank");
@@ -14,8 +38,8 @@ export default function PostsContainerComponents() {
     function DescriptionComponent({ description }) {
         return (
             <div>
-                {description.split(' ').map((word, index) => {
-                    if (word.startsWith('#')) {
+                {description.split(" ").map((word, index) => {
+                    if (word.startsWith("#")) {
                         return <BoldTag key={index}>{word} </BoldTag>;
                     } else {
                         return <span key={index}>{word} </span>;
@@ -24,19 +48,30 @@ export default function PostsContainerComponents() {
             </div>
         );
     }
-    //function DescriptionComponent({ description }) {
-    //    return (
-    //        <div>
-    //            {description.split(' ').map((word, index) => {
-    //                if (word.startsWith('#')) {
-    //                    return <BoldTag key={index}>{word} </BoldTag>;
-    //                } else {
-    //                    return <span key={index}>{word} </span>;
-    //                }
-    //            })}
-    //        </div>
-    //    );
-    //}
+
+    function changeLikeIcon(index) {
+        setIsLike((prevState) => {
+            const newState = [...prevState];
+            newState[index] = !newState[index];
+            return newState;
+        });
+    }
+
+    function likeIcon(index) {
+        if (isLike[index]) {
+            return (
+                <BsSuitHeartFill
+                    style={{ height: "30px", width: "30px", color: "red" }}
+                />
+            );
+        } else {
+            return (
+                <BsSuitHeart
+                    style={{ height: "30px", width: "30px", color: "white" }}
+                />
+            );
+        }
+    }
 
     return (
         <PostsContainer>
@@ -48,7 +83,15 @@ export default function PostsContainerComponents() {
                         : metaInfo?.description;
                 return (
                     <Post key={index}>
-                        <UserPhoto src={tln.urlp} alt={`${tln.username} photo`} />
+                        <UserStats>
+                            <UserPhoto src={tln.urlp} alt={`${tln.username} photo`} />
+                            <LikeButtonIcon onClick={() => changeLikeIcon(index)}>
+                                {likeIcon(index)}
+                            </LikeButtonIcon>
+                            <LikeCount>
+                                {`${randomLikes[index]} likes`}
+                            </LikeCount>
+                        </UserStats>
                         <PostData>
                             <PostTitle>{tln.username}</PostTitle>
                             <PostSubtitle>{tln.description}</PostSubtitle>
@@ -60,9 +103,6 @@ export default function PostsContainerComponents() {
                                     <LinkSummary>
                                         <DescriptionComponent description={description} />
                                     </LinkSummary>
-                                    {/*<LinkSummary>
-                                        {metaInfo ? description : "loading..."}
-                                    </LinkSummary>*/}
                                     <LinkUrl>{tln.url}</LinkUrl>
                                 </LinkData>
                                 <LinkPhoto
@@ -77,13 +117,3 @@ export default function PostsContainerComponents() {
         </PostsContainer>
     );
 }
-
-
-//const BoldTag = styled.span`
-//    font-family: 'Lato';
-//    font-style: normal;
-//    font-size: 11px;
-//    line-height: 13px;
-//    color: #9B9595;
-//    font-weight: 700;
-//`;
