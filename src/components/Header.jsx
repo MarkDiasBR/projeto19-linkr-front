@@ -7,6 +7,7 @@ import axios from "axios";
 
 export default function Header() {
     const { timeLineData, setTimeLineData, attTimeLine, setMetaDetaInfo } = useContext(UserContext);
+    const { setIsLoadedPage } = useContext(UserContext);
 
     const APILinkMetaData = "https://jsonlink.io/api/extract?url=";
 
@@ -17,7 +18,7 @@ export default function Header() {
                 Authorization: "Bearer f5e16715-b3b3-43eb-a575-c612106a1085",
             },
         };
-        const promise = axios.get(`http://localhost:5000/post`, config);
+        const promise = axios.get(`http://localhost:5000/timeline`, config);
         promise.then((res) => {
             newData = [...res.data];
             setTimeLineData(newData);
@@ -25,13 +26,12 @@ export default function Header() {
 
             axios.all(requests)
                 .then(axios.spread((...responses) => {
-                    // Manipule as respostas individuais aqui
                     const metaDataInfo = responses.map(r => ({ title: r.data.title, description: r.data.description, images: r.data.images[0] }));
                     console.log("metaDataInfo", metaDataInfo);
                     setMetaDetaInfo(metaDataInfo);
+                    setIsLoadedPage(true);
                 }))
                 .catch(error => {
-                    // Manipule os erros aqui
                     console.error(error);
                 });
 
@@ -39,7 +39,7 @@ export default function Header() {
         promise.catch((res) => {
             alert("nada a declarar");
         });
-    }, [attTimeLine, setTimeLineData, setMetaDetaInfo]);
+    }, [attTimeLine, setTimeLineData, setMetaDetaInfo, setIsLoadedPage]);
 
     //console.log(timeLineData);
     //console.log("metaDataInfo", metaDataInfo)

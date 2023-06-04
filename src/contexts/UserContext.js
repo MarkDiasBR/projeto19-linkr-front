@@ -6,6 +6,8 @@ export const UserProvider = (({ children }) => {
     const [attTimeLine, setAttTimeLine] = useState(false);
     const [timeLineData, setTimeLineData] = useState([]);
     let [metaDataInfo, setMetaDetaInfo] = useState([]);
+    const [isLoadedPage, setIsLoadedPage] = useState(false);
+    const [isLoadedTrendingTags, setIsLoadedTrendingTags] = useState(false);
     //const [token, setToken] = useState("");
     return (
         <UserContext.Provider
@@ -17,7 +19,11 @@ export const UserProvider = (({ children }) => {
                 timeLineData,
                 setTimeLineData,
                 metaDataInfo,
-                setMetaDetaInfo
+                setMetaDetaInfo,
+                isLoadedPage,
+                setIsLoadedPage,
+                isLoadedTrendingTags,
+                setIsLoadedTrendingTags
             }}
         >
             {children}
