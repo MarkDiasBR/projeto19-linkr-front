@@ -82,6 +82,7 @@ export const TextArea = styled.textarea`
 
 export const PublishButton = styled.button`
     margin-top: 5px;
+    margin-left: 390px;
     width: 112px;
     height: 31px;
     background: #1877F2;
