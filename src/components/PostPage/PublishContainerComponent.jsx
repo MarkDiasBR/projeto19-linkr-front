@@ -17,21 +17,29 @@ export default function PublishContainerComponent() {
 
     function getPublish(event) {
         event.preventDefault();
-        console.log("button")
+        alert("button");
         setPublishDisable(true);
         setPublishButtonText("Publishing...");
 
-        if (!publishLink) return alert("Preencha pelo menos o link!");
-        const promise = axios.post(`localhost:5000/post`, {
+        if (!publishLink) {
+            setPublishDisable(false);
+            setPublishButtonText("Publish");
+            setPublishLink("");
+            setUrlDescription("");
+            return alert("Preencha pelo menos o link!");
+        }
+        console.log("publishLink", publishLink);
+        console.log("urlDescription", urlDescription);
+        const promise = axios.post(`http://localhost:5000/post`, {
             link: publishLink,
             description: urlDescription,
-        }, { Authorization: "Bearer f5e16715-b3b3-43eb-a575-c612106a1085" });
+        }, { headers: { Authorization: "Bearer f5e16715-b3b3-43eb-a575-c612106a1085" } });
 
         promise.then(() => {
-            setPublishDisable(true);
+            setPublishDisable(false);
             setAttTimeLine(!attTimeLine);//////context
-            setPublishButtonText("Publishing...");
-            setUrlDescription("");
+            setPublishButtonText("Publish");
+            setPublishLink("");
             setUrlDescription("");
         });
 

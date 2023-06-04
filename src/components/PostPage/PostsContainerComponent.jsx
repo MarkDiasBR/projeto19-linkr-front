@@ -29,11 +29,12 @@ export default function PostsContainerComponents() {
 
     return (
         <PostsContainer>
-            {timeLineData.map((tln, index) => {
-                const metaInfo = metaDataInfo[index];
-                const description = metaInfo?.description.length > 255
-                    ? metaInfo?.description.slice(0, 255) + "..."
-                    : metaInfo?.description;
+            {timeLineData.slice().reverse().map((tln, index) => {
+                const metaInfo = metaDataInfo.slice().reverse()[index];
+                const description =
+                    metaInfo?.description.length > 255
+                        ? metaInfo?.description.slice(0, 255) + "..."
+                        : metaInfo?.description;
                 return (
                     <Post key={index}>
                         <UserPhoto src={tln.urlp} alt={`${tln.username} photo`} />
@@ -42,13 +43,18 @@ export default function PostsContainerComponents() {
                             <PostSubtitle>{tln.description}</PostSubtitle>
                             <LinkContainer>
                                 <LinkData>
-                                    {/*<LinkTitle>{metaInfo.title}</LinkTitle>
-                                    <LinkSummary>{metaInfo.description}</LinkSummary>*/}
-                                    <LinkTitle>{metaInfo ? metaInfo.title : "loading..."}</LinkTitle>
-                                    <LinkSummary>{metaInfo ? description : "loading..."}</LinkSummary>
+                                    <LinkTitle>
+                                        {metaInfo ? metaInfo.title : "loading..."}
+                                    </LinkTitle>
+                                    <LinkSummary>
+                                        {metaInfo ? description : "loading..."}
+                                    </LinkSummary>
                                     <LinkUrl>{tln.url}</LinkUrl>
                                 </LinkData>
-                                <LinkPhoto src={metaInfo ? metaInfo.images : socrates} alt="link photo" />
+                                <LinkPhoto
+                                    src={metaInfo ? metaInfo.images : socrates}
+                                    alt="link photo"
+                                />
                             </LinkContainer>
                         </PostData>
                     </Post>
