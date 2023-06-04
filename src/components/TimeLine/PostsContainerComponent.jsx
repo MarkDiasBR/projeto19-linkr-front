@@ -33,6 +33,9 @@ export default function PostsContainerComponents() {
                                     <LinkSummary>
                                         {metaInfo ? description : "loading..."}
                                     </LinkSummary>
+                                    {/*<LinkSummary>
+                                        {metaInfo ? description : "loading..."}
+                                    </LinkSummary>*/}
                                     <LinkUrl>{tln.url}</LinkUrl>
                                 </LinkData>
                                 <LinkPhoto

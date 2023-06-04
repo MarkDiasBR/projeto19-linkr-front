@@ -49,8 +49,11 @@ export default function TrendingPage() {
                         <TrendingTitle>trending</TrendingTitle>
                         <TrendingTags>
                             {trendingTags.map((tt, index) => {
+                                const cleanedHashtag = tt.name.replace('#', '');
                                 return (
-                                    <TrendingTag key={index}>{tt.name}</TrendingTag>
+                                    <Link to={`/hashtag/${cleanedHashtag}`}>
+                                        <TrendingTag key={index}>{`# ${cleanedHashtag}`}</TrendingTag>
+                                    </Link>
                                 );
                             })}
                         </TrendingTags>
@@ -76,6 +79,19 @@ export default function TrendingPage() {
 const TrendingTags = styled.div`
     margin-top: 22px;
     margin-left: 16px;
+        a{
+        color: #FFFFFF;
+        text-decoration: none;
+        &:link, &:visited {
+            color: none;
+            text-decoration: none;
+            cursor: none;
+        }
+
+        &:link:active, &:visited:active {
+            color: none;
+        }
+}
 `;
 
 const TrendingTitle = styled.div`
