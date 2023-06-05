@@ -1,11 +1,16 @@
 import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
+import { SearchContainer, SearchIcon, SearchInput, DropdownContainer } from "./SearchBarStyle";
 
 export default function SearchBar() {
     const [searchNick, setSearchNick] = useState("");
     const dropdownRef = useRef();
     const debounceTimeoutRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const test1DropDown = [{ urlp: "https://static.todamateria.com.br/upload/mi/ch/michelangelo-og.jpg", username: "JOAZINHO" }, { urlp: "https://aventurasnahistoria.uol.com.br/media/_versions/legacy/2017/04/15/davinciandndn", username: "JOAZÃO" }, { urlp: "https://static.todamateria.com.br/upload/do/na/donatello-cke.jpg", username: "JOAO" }];
+    //const test2DropDown = [{ urlp: "https://static.todamateria.com.br/upload/mi/ch/michelangelo-og.jpg", username: "JOAZINHO" }, { urlp: "https://aventurasnahistoria.uol.com.br/media/_versions/legacy/2017/04/15/davinciandndn", username: "JOAZÃO" }]
+    //const test3DropDown = [{ urlp: "https://aventurasnahistoria.uol.com.br/media/_versions/legacy/2017/04/15/davinciandndn", username: "JOAZÃO" }]
 
     //function searchNickFunction(e) {
     //    const newWord = e;
@@ -23,6 +28,7 @@ export default function SearchBar() {
             debounceTimeoutRef.current = setTimeout(() => {
                 debounceTimeoutRef.current = null;
                 // Realizar ação desejada após o debounce (por exemplo, fazer uma requisição de busca)
+                
                 console.log("Usuário ficou 300ms sem digitar e com 3+ caracteres");
             }, 300);
 
@@ -48,54 +54,3 @@ export default function SearchBar() {
         </DropdownContainer>
     );
 }
-
-const SearchContainer = styled.div`
-    display: flex;
-`;
-
-const SearchIcon = styled.div`
-    height: 45px;
-    background: #FFFFFF;
-    /*border-radius: 8px;*/
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 15px;
-`;
-
-const SearchInput = styled.input`
-    width: 563px;
-    height: 45px;
-    background: #FFFFFF;
-    /*border-radius: 8px;*/
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border: none;
-    color: black;
-    text-indent: 10px;
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 19px;
-    line-height: 23px;
-    &::placeholder{
-        color: #C6C6C6;
-        padding: 17px;
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 19px;
-        line-height: 23px;
-    }
-    &:focus{
-        outline:none;
-    }
-`;
-
-const DropdownContainer = styled.div`
-  position: relative;
-  display: inline-block;
-  margin-top: 13px;
-`;
