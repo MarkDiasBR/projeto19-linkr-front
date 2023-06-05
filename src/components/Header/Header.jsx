@@ -4,6 +4,7 @@ import { HeaderContainer, TextLogo, LogoutContainer, UserImg } from "./HeaderSty
 import { UserContext } from "../../contexts/UserContext";
 import { useContext, useEffect } from "react";
 import axios from "axios";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
     const { timeLineData, setTimeLineData, attTimeLine, setMetaDetaInfo } = useContext(UserContext);
@@ -47,6 +48,7 @@ export default function Header() {
         <>
             <HeaderContainer>
                 <TextLogo>linkr</TextLogo>
+                <SearchBar />
                 <LogoutContainer>
                     <IoIosArrowDown style={{ color: "white", fontSize: "32px", marginTop: "20px" }} />
                     {/*<UserImg src={socrates} alt="socrates" />*/}
