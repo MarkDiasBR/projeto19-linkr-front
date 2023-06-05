@@ -1,7 +1,7 @@
 //import socrates from "../assets/socratesazul-cke.jpg"
 import { IoIosArrowDown } from "react-icons/io";
 import { HeaderContainer, TextLogo, LogoutContainer, UserImg } from "./HeaderStyle";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 

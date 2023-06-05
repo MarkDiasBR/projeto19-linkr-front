@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 //import PublishContainer from "../../components/TredingPage/PublishContainerComponent";
 import PublishContainer from "../../components/TrendingPage/PublishContainerComponent";
 //import PostsContainerComponents from "../../components/TredingPage/PostsContainerComponent";
