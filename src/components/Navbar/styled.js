@@ -3,11 +3,15 @@ import styled from "styled-components";
 export const Container = styled.div`
     background-color: #151515;
     height: 68px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
-    position: relative;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    right: 0;
 
     & h1 {
         color: #fff;

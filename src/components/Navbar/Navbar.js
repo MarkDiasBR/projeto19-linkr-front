@@ -1,4 +1,4 @@
-import { Container } from "./styled";
+import { Container } from "./styled.js";
 import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
